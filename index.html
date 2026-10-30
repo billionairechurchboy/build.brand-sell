@@ -498,20 +498,15 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </script>
 <script>
 (function () {
-  function handleWhatsAppClick(event) {
-    event.preventDefault();
-    var whatsappUrl = event.currentTarget.href;
-    if (window.ttq) {
-      window.ttq.track('Contact');
-    }
-    setTimeout(function () {
-      window.location.href = whatsappUrl;
-    }, 400);
-  }
   document.querySelectorAll('a.wa-join').forEach(function (el) {
-    el.addEventListener('click', handleWhatsAppClick);
+    el.addEventListener('click', function () {
+      if (window.ttq && typeof window.ttq.track === 'function') {
+        window.ttq.track('Contact');
+      }
+    });
   });
 })();
 </script>
+
 </body>
 </html>
